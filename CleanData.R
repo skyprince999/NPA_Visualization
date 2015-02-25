@@ -2,6 +2,9 @@
 require(xlsx)
 output<-data.frame()
 sheets<-list()
+# quarterly data is stored for private & public banks in separate files
+# financial information for each bank is stored in a separate sheet
+# for loop is used to read the data from different sheets
 for(i in 1:38){
   sheets[[i]]<-read.xlsx("Private_Banks_Quarterly.xlsx",i)
   bankName<-rep(names(sheets[[i]])[1],18)
@@ -26,4 +29,7 @@ for(i in 1:24){
 
 colnames(output)<-c("Bank.Name","Private.Public","Quarter","Net.Profit","Gross.NPA","Net.NPA","RoA","No.Of.Shares")
 rm(bankName,i,privatePublic,bank_data,quarters)
+
+# Output data is stored in a separate file
+# This is then used as an input for the VizData.R program
 write.xlsx(output,"datafile.xlsx")
